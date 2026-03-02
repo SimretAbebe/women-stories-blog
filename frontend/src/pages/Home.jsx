@@ -18,11 +18,12 @@ function Home() {
   return (
     <div className="home-page" style={{ padding: '20px' }}>
       <h2>Latest Inspirational Stories</h2>
-      <div className="stories-grid" style={{ display: 'flex', flexWrap: 'wrap' }}>
-        {stories.map(story => (
-          <StoryCard key={story.id} story={story} />
-        ))}
-      </div>
+     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+  {stories.map(story => (
+    <StoryCard key={story.id} story={story} />
+  ))}
+</div>
+
     </div>
   );
 }
