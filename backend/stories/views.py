@@ -7,5 +7,11 @@ class CategoryViewSet(viewsets.ModelViewSet):
     serializer_class = CategorySerializer
 
 class StoryViewSet(viewsets.ModelViewSet):
-    queryset = Story.objects.filter(is_approved=True)
+    queryset = Story.objects.all()
+    
+    def get_queryset(self):
+        if self.action in ['list', 'retrieve']:
+            return Story.objects.filter(is_approved=True)
+        return self.queryset
+    
     serializer_class = StorySerializer
