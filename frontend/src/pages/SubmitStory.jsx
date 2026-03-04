@@ -1,9 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
+import AuthContext from '../context/AuthContext';
 import api from '../api';
 
 function SubmitStory({ lang }) {
   const navigate = useNavigate();
+  const { tokens } = useContext(AuthContext);
+
+  useEffect(() => {
+    if (!tokens) {
+      navigate('/login');
+    }
+  }, [tokens, navigate]);
   const [categories, setCategories] = useState([]);
   const [formData, setFormData] = useState({
     category: '',
