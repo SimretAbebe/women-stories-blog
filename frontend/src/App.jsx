@@ -1,6 +1,8 @@
 import { useState, useContext } from 'react';
 import { Routes, Route, Link } from 'react-router-dom';
 import Home from './pages/Home';
+import About from './pages/About';
+import Contact from './pages/Contact';
 import StoryDetail from './pages/StoryDetail';
 import SubmitStory from './pages/SubmitStory';
 import Login from './pages/Login';
@@ -59,15 +61,33 @@ function App() {
         </div>
       </header>
       
-      <main className="max-w-7xl mx-auto py-8">
+      <main className="max-w-7xl mx-auto py-8 text-left min-h-screen">
         <Routes>
           <Route path="/" element={<Home lang={lang} />} />
           <Route path="/story/:id" element={<StoryDetail lang={lang} />} />
           <Route path="/submit" element={<SubmitStory lang={lang} />} />
+          <Route path="/my-stories" element={<MyStories lang={lang} />} />
           <Route path="/login" element={<Login lang={lang} />} />
           <Route path="/register" element={<Register lang={lang} />} />
+          <Route path="/about" element={<About lang={lang} />} />
+          <Route path="/contact" element={<Contact lang={lang} />} />
         </Routes>
       </main>
+
+      <footer className="bg-white border-t py-12">
+        <div className="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-8">
+          <div className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-pink-600 to-purple-600">
+            Women's Stories
+          </div>
+          <div className="flex gap-8 text-sm font-bold text-gray-500">
+            <Link to="/about" className="hover:text-pink-600">{lang === 'en' ? 'About' : 'ስለ እኛ'}</Link>
+            <Link to="/contact" className="hover:text-pink-600">{lang === 'en' ? 'Contact' : 'ያግኙን'}</Link>
+          </div>
+          <div className="text-sm text-gray-400 font-medium">
+            © 2026 Women's Stories. All rights reserved.
+          </div>
+        </div>
+      </footer>
     </div>
   );
 }

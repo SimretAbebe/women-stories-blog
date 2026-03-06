@@ -32,6 +32,8 @@ class StoryViewSet(viewsets.ModelViewSet):
         return self.queryset
     
     serializer_class = StorySerializer
+    filterset_fields = ['category']
+    search_fields = ['title_en', 'title_am', 'content_en', 'content_am']
 
     def get_permissions(self):
         if self.action == 'create':

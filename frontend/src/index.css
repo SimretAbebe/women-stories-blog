@@ -2,9 +2,21 @@
 @tailwind components;
 @tailwind utilities;
 
+@theme {
+  --color-brand-pink: #db2777;
+  --color-brand-purple: #9333ea;
+}
+
 body {
   margin: 0;
   font-family: inherit;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.glass {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
 }
