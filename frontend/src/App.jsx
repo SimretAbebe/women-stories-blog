@@ -5,6 +5,7 @@ import StoryDetail from './pages/StoryDetail';
 import SubmitStory from './pages/SubmitStory';
 import Login from './pages/Login';
 import Register from './pages/Register';
+import MyStories from './pages/MyStories';
 import AuthContext from './context/AuthContext';
 import './App.css';
 
@@ -26,12 +27,17 @@ function App() {
             </Link>
 
             {tokens ? (
-              <button 
-                onClick={logout}
-                className="text-sm font-bold text-red-600 hover:text-red-800 transition-colors"
-              >
-                {lang === 'en' ? 'Logout' : 'Logout (AM)'}
-              </button>
+              <div className="flex items-center gap-6">
+                <Link to="/my-stories" className="text-sm font-bold text-gray-600 hover:text-purple-600 transition-colors">
+                  {lang === 'en' ? 'My Stories' : 'የኔ ታሪኮች'}
+                </Link>
+                <button 
+                  onClick={logout}
+                  className="text-sm font-bold text-red-600 hover:text-red-800 transition-colors"
+                >
+                  {lang === 'en' ? 'Logout' : 'ውጣ'}
+                </button>
+              </div>
             ) : (
               <div className="flex gap-4">
                 <Link to="/login" className="text-sm font-bold text-purple-600 hover:text-purple-800 transition-colors">
