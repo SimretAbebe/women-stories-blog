@@ -21,7 +21,6 @@ function Contact({ lang }) {
                 <span>hello@womenstories.com</span>
               </div>
               <div className="flex items-center gap-4 text-gray-600">
-                <span className="text-2xl">📍</span>
                 <span>Addis Ababa, Ethiopia</span>
               </div>
             </div>

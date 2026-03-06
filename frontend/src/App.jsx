@@ -84,7 +84,7 @@ function App() {
             <Link to="/contact" className="hover:text-pink-600">{lang === 'en' ? 'Contact' : 'ያግኙን'}</Link>
           </div>
           <div className="text-sm text-gray-400 font-medium">
-            © 2026 Women's Stories. All rights reserved.
+            2026 Women's Stories. All rights reserved.
           </div>
         </div>
       </footer>
