@@ -13,6 +13,7 @@ class RegisterView(generics.CreateAPIView):
 class CategoryViewSet(viewsets.ModelViewSet):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
+    permission_classes = [permissions.AllowAny]
 
 class StoryViewSet(viewsets.ModelViewSet):
     queryset = Story.objects.all()
@@ -36,6 +37,8 @@ class StoryViewSet(viewsets.ModelViewSet):
     search_fields = ['title_en', 'title_am', 'content_en', 'content_am']
 
     def get_permissions(self):
+        if self.action in ['list', 'retrieve']:
+            return [permissions.AllowAny()]
         if self.action == 'create':
             return [permissions.IsAuthenticated()]
         return [permissions.AllowAny()]

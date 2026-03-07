@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Search } from 'lucide-react';
 import api from '../api';
 import StoryCard from '../components/StoryCard';
 
@@ -34,59 +35,96 @@ function Home({ lang }) {
       });
   }, [selectedCategory, searchQuery]);
 
+
   return (
-    <div className="px-4 max-w-7xl mx-auto">
-      {/* Search and Filter Section */}
-      <div className="mb-12 space-y-6">
-        <div className="relative max-w-2xl mx-auto">
-          <input 
-            type="text" 
-            placeholder={lang === 'en' ? "Search stories..." : "ታሪኮችን ይፈልጉ..."}
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full px-6 py-4 rounded-full bg-white shadow-lg border-none focus:ring-2 focus:ring-pink-500 transition-all outline-none text-lg"
-          />
-          <div className="absolute right-6 top-1/2 -translate-y-1/2 text-gray-400">
-            🔍
+    <div className="relative min-h-screen">
+      {/* Decorative Background Blobs */}
+      <div className="fixed top-20 -left-20 w-96 h-96 bg-pink-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-pulse pointer-events-none" />
+      <div className="fixed bottom-20 -right-20 w-96 h-96 bg-purple-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-pulse pointer-events-none delay-700" />
+
+      {/* Hero Section */}
+      <section className="relative py-20 px-4 mb-20">
+        <div className="max-w-5xl mx-auto text-center animate-fade-up">
+          <span className="inline-block px-4 py-1.5 rounded-full bg-pink-50 text-pink-600 text-[10px] font-black uppercase tracking-[0.2em] mb-6 shadow-sm border border-pink-100">
+            {lang === 'en' ? 'VOICES OF RESILIENCE' : ''}
+          </span>
+          <h1 className="text-5xl md:text-8xl font-black text-gray-900 leading-none mb-8 tracking-tighter">
+            {lang === 'en' ? (
+              <>Share Your <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-600 to-purple-600">Journey.</span></>
+            ) : (
+              <><span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-600 to-purple-600"></span></>
+            )}
+          </h1>
+          <p className="max-w-2xl mx-auto text-lg md:text-xl text-gray-500 font-medium leading-relaxed mb-12">
+            {lang === 'en' 
+              ? "A safe sanctuary for women to tell their stories, find strength in community, and inspire the next generation through courage."
+              : ""}
+          </p>
+
+          <div className="relative max-w-2xl mx-auto group">
+            <input 
+              type="text" 
+              placeholder={lang === 'en' ? "Search for inspiration..." : ""}
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="w-full px-8 py-5 rounded-[2rem] bg-white/80 backdrop-blur-xl shadow-2xl border-2 border-white focus:ring-4 focus:ring-pink-500/20 transition-all outline-none text-xl font-medium placeholder:text-gray-300"
+            />
+            <div className="absolute right-8 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-pink-600 transition-colors duration-300">
+              <Search size={22} />
+            </div>
           </div>
         </div>
+      </section>
 
-        <div className="flex flex-wrap justify-center gap-3">
+      {/* Filter Section */}
+      <div className="max-w-7xl mx-auto px-4 mb-16">
+        <div className="glass p-3 rounded-full inline-flex gap-2 mb-12 shadow-inner">
           <button 
             onClick={() => setSelectedCategory(null)}
-            className={`px-6 py-2 rounded-full font-bold transition-all ${!selectedCategory ? 'bg-pink-600 text-white shadow-md' : 'bg-white text-gray-600 hover:bg-gray-50'}`}
+            className={`px-8 py-2.5 rounded-full text-xs font-black transition-all tracking-widest ${!selectedCategory ? 'bg-white text-pink-600 shadow-xl scale-105' : 'text-gray-500 hover:text-gray-900'}`}
           >
-            {lang === 'en' ? 'All' : 'ሁሉም'}
+            {lang === 'en' ? 'ALL JOURNEYS' : ''}
           </button>
           {categories.map(cat => (
             <button 
               key={cat.id}
               onClick={() => setSelectedCategory(cat.id)}
-              className={`px-6 py-2 rounded-full font-bold transition-all ${selectedCategory === cat.id ? 'bg-pink-600 text-white shadow-md' : 'bg-white text-gray-600 hover:bg-gray-50'}`}
+              className={`px-8 py-2.5 rounded-full text-xs font-black transition-all tracking-widest ${selectedCategory === cat.id ? 'bg-white text-pink-600 shadow-xl scale-105' : 'text-gray-500 hover:text-gray-900'}`}
             >
-              {cat.name}
+              {cat.name.toUpperCase()}
             </button>
           ))}
         </div>
-      </div>
 
-      <h2 className="text-3xl font-extrabold text-gray-900 mb-8 border-l-4 border-purple-600 pl-4">
-        {lang === 'en' ? 'Latest Inspirational Stories' : 'የቅርብ ጊዜ አነቃቂ ታሪኮች'}
-      </h2>
-      
-      {stories.length === 0 ? (
-        <div className="text-center py-20 text-gray-500">
-          {lang === 'en' ? "No stories found matching your criteria." : "ከእርስዎ ፍለጋ ጋር የሚዛመድ ታሪክ አልተገኘም።"}
+        <div className="flex items-center justify-between mb-10">
+          <h2 className="text-2xl font-black text-gray-900 tracking-tight">
+            {lang === 'en' ? 'FEATURED STORIES' : ''}
+          </h2>
+          <div className="h-px bg-gray-100 flex-grow mx-8" />
+          <p className="text-xs font-bold text-gray-400 uppercase tracking-widest">
+            {stories.length} {lang === 'en' ? 'Results' : ''}
+          </p>
         </div>
-      ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {stories.map(story => (
-            <StoryCard key={story.id} story={story} lang={lang} />
-          ))}
-        </div>
-      )}
+        
+        {stories.length === 0 ? (
+          <div className="text-center py-32 glass rounded-[3rem] border-dashed border-2 border-gray-200">
+            <p className="text-xl text-gray-400 font-bold italic">
+              {lang === 'en' ? "No journeys match your search..." : "ከፍለጋዎ ጋር የሚዛመድ ጉዞ የለም..."}
+            </p>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+            {stories.map((story, index) => (
+              <div key={story.id} style={{ animationDelay: `${index * 100}ms` }} className="animate-fade-up">
+                <StoryCard story={story} lang={lang} />
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
     </div>
   );
 }
+
 
 export default Home;
