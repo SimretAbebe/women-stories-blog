@@ -2,7 +2,6 @@ import { useState, useContext } from 'react';
 import { Routes, Route, Link } from 'react-router-dom';
 import Home from './pages/Home';
 import About from './pages/About';
-import Contact from './pages/Contact';
 import StoryDetail from './pages/StoryDetail';
 import SubmitStory from './pages/SubmitStory';
 import Login from './pages/Login';
@@ -70,7 +69,6 @@ function App() {
           <Route path="/login" element={<Login lang={lang} />} />
           <Route path="/register" element={<Register lang={lang} />} />
           <Route path="/about" element={<About lang={lang} />} />
-          <Route path="/contact" element={<Contact lang={lang} />} />
         </Routes>
       </main>
 
@@ -81,7 +79,6 @@ function App() {
           </div>
           <div className="flex gap-8 text-sm font-bold text-gray-500">
             <Link to="/about" className="hover:text-pink-600">{lang === 'en' ? 'About' : 'ስለ እኛ'}</Link>
-            <Link to="/contact" className="hover:text-pink-600">{lang === 'en' ? 'Contact' : 'ያግኙን'}</Link>
           </div>
           <div className="text-sm text-gray-400 font-medium">
             2026 Women's Stories. All rights reserved.
