@@ -2,7 +2,9 @@ import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
 
 function StoryCard({ story, lang }) {
-  const imageUrl = story.image ? `http://127.0.0.1:8000${story.image}` : 'https://via.placeholder.com/150';
+  const imageUrl = story.image 
+    ? (story.image.startsWith('http') ? story.image : `http://127.0.0.1:8000${story.image}`) 
+    : 'https://via.placeholder.com/150';
 
   const title = lang === 'en' ? story.title_en : story.title_am;
   const content = lang === 'en' ? story.content_en : story.content_am;

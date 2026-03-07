@@ -21,7 +21,9 @@ function StoryDetail({ lang }) {
     );
   }
 
-  const imageUrl = story.image ? `http://127.0.0.1:8000${story.image}` : 'https://via.placeholder.com/800x400';
+  const imageUrl = story.image 
+    ? (story.image.startsWith('http') ? story.image : `http://127.0.0.1:8000${story.image}`) 
+    : 'https://via.placeholder.com/800x400';
   const title = lang === 'en' ? story.title_en : story.title_am;
   const content = lang === 'en' ? story.content_en : story.content_am;
 
