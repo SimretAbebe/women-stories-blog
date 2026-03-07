@@ -26,6 +26,9 @@ function App() {
             <Link to="/submit" className="text-sm font-bold text-gray-600 hover:text-pink-600 transition-colors">
               {lang === 'en' ? 'Submit Story' : 'Submit Story (AM)'}
             </Link>
+            <Link to="/about" className="text-sm font-bold text-gray-600 hover:text-pink-600 transition-colors">
+              {lang === 'en' ? 'About' : 'ስለ እኛ'}
+            </Link>
 
             {tokens ? (
               <div className="flex items-center gap-6">
@@ -76,9 +79,6 @@ function App() {
         <div className="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-8">
           <div className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-pink-600 to-purple-600">
             Women's Stories
-          </div>
-          <div className="flex gap-8 text-sm font-bold text-gray-500">
-            <Link to="/about" className="hover:text-pink-600">{lang === 'en' ? 'About' : 'ስለ እኛ'}</Link>
           </div>
           <div className="text-sm text-gray-400 font-medium">
             2026 Women's Stories. All rights reserved.
