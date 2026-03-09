@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import api from '../api';
+import { Loader2 } from 'lucide-react';
 
 function Register({ lang }) {
+  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     username: '',
     email: '',
@@ -21,9 +23,10 @@ function Register({ lang }) {
     setError('');
 
     if (formData.password !== formData.confirmPassword) {
-      setError(lang === 'en' ? 'Passwords do not match' : 'የይለፍ ቃሎቹ አይዛመዱም');
+      setError(lang === 'en' ? 'Passwords do not match' : 'No Matching');
       return;
     }
+    setLoading(true);
 
     try {
       await api.post('register/', {
@@ -31,43 +34,58 @@ function Register({ lang }) {
         email: formData.email,
         password: formData.password
       });
-      alert(lang === 'en' ? 'Registration successful! Please login.' : 'ምዝገባው ተሳክቷል! እባክዎ ይግቡ።');
+      alert(lang === 'en' ? 'Registration successful! Please login.' : '');
       navigate('/login');
     } catch (err) {
       console.error(err);
-      setError(lang === 'en' ? 'Registration failed. Try a different username.' : 'ምዝገባው አልተሳካም። ሌላ የተጠቃሚ ስም ይሞክሩ።');
+      setError(lang === 'en' ? 'Registration failed. Try a different username.' : '');
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
     <div className="max-w-md mx-auto mt-12 p-8 bg-white rounded-2xl shadow-xl border border-gray-100">
       <h2 className="text-3xl font-extrabold text-center mb-8 bg-clip-text text-transparent bg-gradient-to-r from-pink-600 to-purple-600">
-        {lang === 'en' ? 'Create Account' : 'አካውንት ይፍጠሩ'}
+        {lang === 'en' ? 'Create Account' : ''}
       </h2>
       
       {error && <p className="text-red-500 text-sm mb-4 text-center font-bold">{error}</p>}
       
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
-          <label className="block text-sm font-bold text-gray-700 mb-2">{lang === 'en' ? 'Username' : 'የተጠቃሚ ስም'}</label>
+          <label className="block text-sm font-bold text-gray-700 mb-2">{lang === 'en' ? 'Username' : ''}</label>
           <input name="username" type="text" onChange={handleChange} required className="w-full px-4 py-3 rounded-xl border border-gray-200 outline-none focus:ring-2 focus:ring-pink-500" />
         </div>
         <div>
-          <label className="block text-sm font-bold text-gray-700 mb-2">{lang === 'en' ? 'Email' : 'ኢሜል'}</label>
+          <label className="block text-sm font-bold text-gray-700 mb-2">{lang === 'en' ? 'Email' : ''}</label>
           <input name="email" type="email" onChange={handleChange} required className="w-full px-4 py-3 rounded-xl border border-gray-200 outline-none focus:ring-2 focus:ring-pink-500" />
         </div>
         <div>
-          <label className="block text-sm font-bold text-gray-700 mb-2">{lang === 'en' ? 'Password' : 'የይለፍ ቃል'}</label>
+          <label className="block text-sm font-bold text-gray-700 mb-2">{lang === 'en' ? 'Password' : ''}</label>
           <input name="password" type="password" onChange={handleChange} required className="w-full px-4 py-3 rounded-xl border border-gray-200 outline-none focus:ring-2 focus:ring-pink-500" />
         </div>
         <div>
-          <label className="block text-sm font-bold text-gray-700 mb-2">{lang === 'en' ? 'Confirm Password' : 'የይለፍ ቃሉን ያረጋግጡ'}</label>
+          <label className="block text-sm font-bold text-gray-700 mb-2">{lang === 'en' ? 'Confirm Password' : ''}</label>
           <input name="confirmPassword" type="password" onChange={handleChange} required className="w-full px-4 py-3 rounded-xl border border-gray-200 outline-none focus:ring-2 focus:ring-pink-500" />
         </div>
         
-        <button type="submit" className="w-full bg-gradient-to-r from-pink-600 to-purple-600 text-white font-bold py-3 rounded-xl hover:opacity-90 transition-all shadow-lg">
-          {lang === 'en' ? 'Register' : 'ተመዝገብ'}
-        </button>
+        <button 
+  type="submit" 
+  disabled={loading}
+  className={`w-full bg-gradient-to-r from-pink-600 to-purple-600 text-white font-bold py-3 rounded-xl transition-all shadow-lg flex items-center justify-center gap-2 ${loading ? 'opacity-70 cursor-not-allowed' : 'hover:opacity-90 transform active:scale-95'}`}
+>
+  {loading ? (
+    <>
+      <Loader2 className="animate-spin" size={20} />
+      {lang === 'en' ? 'Creating account...' : ''}
+    </>
+  ) : (
+    lang === 'en' ? 'Register' : ''
+  )}
+</button>
+
+      
       </form>
     </div>
   );

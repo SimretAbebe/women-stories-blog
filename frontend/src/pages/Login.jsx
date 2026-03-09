@@ -1,19 +1,24 @@
 import React, { useState, useContext } from 'react';
 import AuthContext from '../context/AuthContext';
+import  { Loader2 } from 'lucide-react';
 
 function Login({ lang }) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const { login } = useContext(AuthContext);
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
+    setLoading(true);
     try {
       await login(username, password);
     } catch (err) {
       setError(lang === 'en' ? 'Invalid username or password' : 'Wrong username or password');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -53,13 +58,21 @@ function Login({ lang }) {
             placeholder="••••••••"
           />
         </div>
-        
         <button 
-          type="submit" 
-          className="w-full bg-gradient-to-r from-pink-600 to-purple-600 text-white font-bold py-3 rounded-xl hover:opacity-90 transform active:scale-95 transition-all shadow-lg"
-        >
-          {lang === 'en' ? 'Login' : 'Set In'}
-        </button>
+  type="submit" 
+  disabled={loading} // 1. Disable button while loading
+  className={`w-full bg-gradient-to-r from-pink-600 to-purple-600 text-white font-bold py-3 rounded-xl transition-all shadow-lg flex items-center justify-center gap-2 ${loading ? 'opacity-70 cursor-not-allowed' : 'hover:opacity-90 transform active:scale-95'}`}
+>
+  {loading ? (
+    <>
+      <Loader2 className="animate-spin" size={20} />
+      {lang === 'en' ? 'Signing in...' : 'Waiting'}
+    </>
+  ) : (
+    lang === 'en' ? 'Login' : 'Gatting In'
+  )}
+</button>
+
       </form>
     </div>
   );
