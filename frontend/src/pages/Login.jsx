@@ -1,6 +1,7 @@
 import React, { useState, useContext } from 'react';
 import AuthContext from '../context/AuthContext';
 import  { Loader2 } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 function Login({ lang }) {
   const [username, setUsername] = useState('');
@@ -69,11 +70,17 @@ function Login({ lang }) {
       {lang === 'en' ? 'Signing in...' : 'Waiting'}
     </>
   ) : (
-    lang === 'en' ? 'Login' : 'Gatting In'
+    lang === 'en' ? 'Login' : ''
   )}
 </button>
-
       </form>
+     <p className="mt-8 text-center text-sm text-gray-500 font-medium">
+  {lang === 'en' ? "Don't have an account?" : 'አካውንት የለዎትም?'} {' '}
+  <Link to="/register" className="text-pink-600 font-bold hover:underline">
+    {lang === 'en' ? 'Create one' : 'ይመዝገቡ'}
+  </Link>
+</p>
+
     </div>
   );
 }
