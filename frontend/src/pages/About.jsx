@@ -11,14 +11,14 @@ function About({ lang }) {
         <div className="space-y-6 text-lg text-gray-700 leading-relaxed text-left">
           <p>
             {lang === 'en' 
-              ? "Welcome to a platform dedicated to the voices that inspire, challenge, and shape our world. We believe that every woman's journey is a masterpiece of resilience and hope."
+              ? "Welcome to My platform dedicated to the voices that inspire, challenge, and shape our world. I believe that every woman's journey is a masterpiece of resilience and hope."
               : ""}
           </p>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 py-8">
             <div className="bg-pink-50 rounded-2xl p-6">
               <h3 className="font-bold text-pink-600 mb-2">
-                {lang === 'en' ? "Our Mission" : ""}
+                {lang === 'en' ? "My Mission" : ""}
               </h3>
               <p className="text-sm">
                 {lang === 'en' 
@@ -32,7 +32,7 @@ function About({ lang }) {
               </h3>
               <p className="text-sm">
                 {lang === 'en' 
-                  ? "By documenting these stories, we create a living archive of wisdom and courage for future generations."
+                  ? "By documenting these stories, I create a living archive of wisdom and courage for future generations."
                   : ""}
               </p>
             </div>
