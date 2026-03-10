@@ -23,16 +23,16 @@ function App() {
           </Link>
           
           <div className="flex items-center gap-6">
-            <Link to="/submit" className="text-sm font-bold text-gray-600 hover:text-pink-600 transition-colors">
+            <Link to="/submit" className="bg-gradient-to-r from-pink-600 to-purple-600 text-white px-6 py-2 rounded-full text-sm font-black shadow-lg hover:scale-105 transition-all">
               {lang === 'en' ? 'Submit Story' : 'Submit Story (AM)'}
             </Link>
-            <Link to="/about" className="text-sm font-bold text-gray-600 hover:text-pink-600 transition-colors">
-              {lang === 'en' ? 'About' : 'ስለ እኛ'}
+            <Link to="/about" className="bg-gradient-to-r from-pink-600 to-purple-600 text-white px-6 py-2 rounded-full text-sm font-black shadow-lg hover:scale-105 transition-all">
+              {lang === 'en' ? 'About' : ''}
             </Link>
 
             {tokens ? (
               <div className="flex items-center gap-6">
-                <Link to="/my-stories" className="text-sm font-bold text-gray-600 hover:text-purple-600 transition-colors">
+                <Link to="/my-stories" className="bg-gradient-to-r from-pink-600 to-purple-600 text-white px-6 py-2 rounded-full text-sm font-black shadow-lg hover:scale-105 transition-all">
                   {lang === 'en' ? 'My Stories' : ''}
                 </Link>
                 <button 
@@ -55,7 +55,7 @@ function App() {
 
                         <button 
               onClick={() => setLang(lang === 'en' ? 'am' : 'en')}
-              className="px-4 py-2 rounded-full bg-gray-100 hover:bg-gray-200 text-sm font-bold transition-colors"
+              className="bg-gradient-to-r from-pink-600 to-purple-600 text-white px-6 py-2 rounded-full text-sm font-black shadow-lg hover:scale-105 transition-all"
             >
               {lang === 'en' ? 'Amharic' : 'English'}
             </button>

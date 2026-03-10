@@ -61,7 +61,7 @@ function Login({ lang }) {
         </div>
         <button 
   type="submit" 
-  disabled={loading} // 1. Disable button while loading
+  disabled={loading} 
   className={`w-full bg-gradient-to-r from-pink-600 to-purple-600 text-white font-bold py-3 rounded-xl transition-all shadow-lg flex items-center justify-center gap-2 ${loading ? 'opacity-70 cursor-not-allowed' : 'hover:opacity-90 transform active:scale-95'}`}
 >
   {loading ? (
@@ -75,9 +75,9 @@ function Login({ lang }) {
 </button>
       </form>
      <p className="mt-8 text-center text-sm text-gray-500 font-medium">
-  {lang === 'en' ? "Don't have an account?" : 'አካውንት የለዎትም?'} {' '}
+  {lang === 'en' ? "Don't have an account?" : ''} {' '}
   <Link to="/register" className="text-pink-600 font-bold hover:underline">
-    {lang === 'en' ? 'Create one' : 'ይመዝገቡ'}
+    {lang === 'en' ? 'Create one' : ''}
   </Link>
 </p>
 
