@@ -80,8 +80,8 @@ function SubmitStory({ lang }) {
 
         {/* Amharic Inputs */}
         <div className="border-l-4 border-purple-500 pl-4 space-y-4">
-          <input type="text" name="title_am" placeholder="Amharic LIst" onChange={handleChange} required className="w-full border rounded-md p-2" />
-          <textarea name="content_am" placeholder="Amharic Section" onChange={handleChange} required rows="4" className="w-full border rounded-md p-2" />
+          <input type="text" name="title_am" placeholder="Amharic LIst" onChange={handleChange}  className="w-full border rounded-md p-2" />
+          <textarea name="content_am" placeholder="Amharic Section" onChange={handleChange}  rows="4" className="w-full border rounded-md p-2" />
         </div>
 
         {/* Image Upload */}

@@ -24,8 +24,8 @@ function StoryDetail({ lang }) {
   const imageUrl = story.image 
     ? (story.image.startsWith('http') ? story.image : `http://127.0.0.1:8000${story.image}`) 
     : 'https://via.placeholder.com/800x400';
-  const title = lang === 'en' ? story.title_en : story.title_am;
-  const content = lang === 'en' ? story.content_en : story.content_am;
+  const title = lang === 'am' && story.title_am ? story.title_am : story.title_en;
+  const content = lang === 'am' && story.content_am ? story.content_am : story.content_en;
 
   return (
     <div className="max-w-5xl mx-auto px-4 py-12 animate-fade-up">

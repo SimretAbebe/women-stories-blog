@@ -11,11 +11,11 @@ class Category(models.Model):
 
 class Story(models.Model):
     title_en = models.CharField(max_length=200)
-    title_am= models.CharField(max_length=200)
+    title_am= models.CharField(max_length=200 , blank=True , null=True)
     slug = models.SlugField(unique=True, blank=True)
     image = models.ImageField(upload_to='stories/', blank=True, null=True)
     content_en = models.TextField()
-    content_am= models.TextField()
+    content_am= models.TextField(blank=True , null=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='stories')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

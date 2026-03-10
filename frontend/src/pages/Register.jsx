@@ -36,7 +36,7 @@ function Register({ lang }) {
         password: formData.password
       });
       alert(lang === 'en' ? 'Registration successful! Please login.' : '');
-      navigate('/login');
+      navigate('/');
     } catch (err) {
       console.error(err);
       setError(lang === 'en' ? 'Registration failed. Try a different username.' : '');

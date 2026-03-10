@@ -6,8 +6,8 @@ function StoryCard({ story, lang }) {
     ? (story.image.startsWith('http') ? story.image : `http://127.0.0.1:8000${story.image}`) 
     : 'https://via.placeholder.com/150';
 
-  const title = lang === 'en' ? story.title_en : story.title_am;
-  const content = lang === 'en' ? story.content_en : story.content_am;
+  const title = lang === 'am' && story.title_am ? story.title_am : story.title_en;;
+  const content = lang === 'am' && story.content_am ? story.content_am : story.content_en;
 
   return (
     <div className="glass-card rounded-2xl overflow-hidden hover:shadow-2xl transition-all duration-500 border border-white/50 animate-fade-up hover:-translate-y-2 group">
