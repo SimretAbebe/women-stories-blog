@@ -6,6 +6,7 @@ import api from '../api';
 function SubmitStory({ lang }) {
   const navigate = useNavigate();
   const { tokens } = useContext(AuthContext);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
     if (!tokens) {
@@ -39,6 +40,7 @@ function SubmitStory({ lang }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     
     const data = new FormData();
     Object.keys(formData).forEach(key => {
@@ -54,13 +56,15 @@ function SubmitStory({ lang }) {
     } catch (err) {
       console.error(err);
       alert('Error submitting story');
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
     <div className="max-w-2xl mx-auto p-6 bg-white rounded-xl shadow-md">
       <h2 className="text-2xl font-bold mb-6 text-gray-800">
-        {lang === 'en' ? 'Submit a New Story' : 'አዲስ ታሪክ ላክ'}
+        {lang === 'en' ? 'Submit a New Story' : ''}
       </h2>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
@@ -90,9 +94,21 @@ function SubmitStory({ lang }) {
           <input type="file" name="image" onChange={handleChange} accept="image/*" className="mt-1 block w-full text-sm text-gray-500" />
         </div>
 
-        <button type="submit" className="w-full bg-gradient-to-r from-pink-600 to-purple-600 text-white font-bold py-2 rounded-md hover:opacity-90 transition-opacity">
-          {lang === 'en' ? 'Submit Story' : 'Tariku Telkuwale'}
-        </button>
+       <button 
+  type="submit" 
+  disabled={loading}
+  className={`w-full bg-gradient-to-r from-pink-600 to-purple-600 text-white font-bold py-4 rounded-xl shadow-lg flex items-center justify-center gap-3 transition-all ${loading ? 'opacity-70 cursor-not-allowed' : 'hover:opacity-90 transform active:scale-95'}`}
+>
+  {loading ? (
+    <>
+      <Loader2 className="animate-spin" size={20} />
+      {lang === 'en' ? 'Uploading story...' : ''}
+    </>
+  ) : (
+    lang === 'en' ? 'Submit Story' : ''
+  )}
+</button>
+
       </form>
     </div>
   );
