@@ -24,7 +24,7 @@ function App() {
           
           <div className="flex items-center gap-6">
             <Link to="/submit" className="bg-gradient-to-r from-pink-600 to-purple-600 text-white px-6 py-2 rounded-full text-sm font-black shadow-lg hover:scale-105 transition-all">
-              {lang === 'en' ? 'Submit Story' : 'Submit Story (AM)'}
+              {lang === 'en' ? 'Submit Story' : ''}
             </Link>
             <Link to="/about" className="bg-gradient-to-r from-pink-600 to-purple-600 text-white px-6 py-2 rounded-full text-sm font-black shadow-lg hover:scale-105 transition-all">
               {lang === 'en' ? 'About' : ''}

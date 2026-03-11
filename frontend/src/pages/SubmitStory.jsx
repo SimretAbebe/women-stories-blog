@@ -2,11 +2,13 @@ import React, { useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import AuthContext from '../context/AuthContext';
 import api from '../api';
+import { Loader2 } from 'lucide-react';
+
 
 function SubmitStory({ lang }) {
   const navigate = useNavigate();
   const { tokens } = useContext(AuthContext);
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (!tokens) {
