@@ -19,7 +19,6 @@ class Story(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='stories')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    is_approved = models.BooleanField(default=False)
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='stories' , null=True, blank=True)
 
     def save(self, *args, **kwargs):

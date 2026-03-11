@@ -26,12 +26,7 @@ class StoryViewSet(viewsets.ModelViewSet):
         stories = Story.objects.filter(author=request.user)
         serializer = self.get_serializer(stories, many=True)
         return Response(serializer.data)
-    
-    def get_queryset(self):
-        if self.action in ['list', 'retrieve']:
-            return Story.objects.filter(is_approved=True)
-        return self.queryset
-    
+ 
     serializer_class = StorySerializer
     filterset_fields = ['category']
     search_fields = ['title_en', 'title_am', 'content_en', 'content_am']

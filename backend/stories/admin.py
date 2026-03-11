@@ -7,8 +7,8 @@ class CategoryAdmin(admin.ModelAdmin):
 
 @admin.register(Story)
 class StoryAdmin(admin.ModelAdmin):
-    list_display = ('title_en', 'category', 'is_approved', 'created_at')
-    list_filter = ('is_approved', 'category')
+    list_display = ('title_en', 'category', 'created_at')
+    list_filter = ('category',)
     search_fields = ('title_en', 'title_am', 'content_en', 'content_am')
     prepopulated_fields = {'slug': ('title_en',)}
 
