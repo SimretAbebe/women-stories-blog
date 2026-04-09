@@ -8,38 +8,40 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import MyStories from './pages/MyStories';
 import AuthContext from './context/AuthContext';
+import translations from './translations';
 import './App.css';
 
 function App() {
   const [lang, setLang] = useState('en');
   const { tokens, logout } = useContext(AuthContext);
+  const t = translations[lang];
 
   return (
     <div className="min-h-screen bg-gray-50 text-gray-900 font-sans">
       <header className="bg-white shadow-sm border-b sticky top-0 z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
           <Link to="/" className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-pink-600 to-purple-600">
-            Women's Stories
+            {t.nav.title}
           </Link>
           
           <div className="flex items-center gap-6">
             <Link to="/submit" className="bg-gradient-to-r from-pink-600 to-purple-600 text-white px-6 py-2 rounded-full text-sm font-black shadow-lg hover:scale-105 transition-all">
-              {lang === 'en' ? 'Submit Story' : ''}
+              {t.nav.submit}
             </Link>
             <Link to="/about" className="bg-gradient-to-r from-pink-600 to-purple-600 text-white px-6 py-2 rounded-full text-sm font-black shadow-lg hover:scale-105 transition-all">
-              {lang === 'en' ? 'About' : ''}
+              {t.nav.about}
             </Link>
 
             {tokens ? (
               <div className="flex items-center gap-6">
                 <Link to="/my-stories" className="bg-gradient-to-r from-pink-600 to-purple-600 text-white px-6 py-2 rounded-full text-sm font-black shadow-lg hover:scale-105 transition-all">
-                  {lang === 'en' ? 'My Stories' : ''}
+                  {t.nav.myStories}
                 </Link>
                 <button 
                   onClick={logout}
                   className="text-sm font-bold text-red-600 hover:text-red-800 transition-colors"
                 >
-                  {lang === 'en' ? 'Logout' : ''}
+                  {t.nav.logout}
                 </button>
               </div>
             ) : (
@@ -48,7 +50,7 @@ function App() {
       to="/register" 
       className="bg-gradient-to-r from-pink-600 to-purple-600 text-white px-6 py-2 rounded-full text-sm font-black shadow-lg hover:scale-105 transition-all"
     >
-      {lang === 'en' ? 'Get Started' : ''}
+      {t.nav.getStarted}
     </Link>
   </div>
 )}
@@ -57,7 +59,7 @@ function App() {
               onClick={() => setLang(lang === 'en' ? 'am' : 'en')}
               className="bg-gradient-to-r from-pink-600 to-purple-600 text-white px-6 py-2 rounded-full text-sm font-black shadow-lg hover:scale-105 transition-all"
             >
-              {lang === 'en' ? 'Amharic' : 'English'}
+              {t.nav.toggleLang}
             </button>
           </div>
         </div>
@@ -78,10 +80,10 @@ function App() {
       <footer className="bg-white border-t py-12">
         <div className="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-8">
           <div className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-pink-600 to-purple-600">
-            Women's Stories
+            {t.nav.title}
           </div>
           <div className="text-sm text-gray-400 font-medium">
-            2026 Women's Stories. All rights reserved.
+            {t.footer.rights}
           </div>
         </div>
       </footer>
@@ -90,3 +92,4 @@ function App() {
 }
 
 export default App;
+

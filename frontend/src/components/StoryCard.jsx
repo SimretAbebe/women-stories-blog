@@ -1,9 +1,13 @@
 import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
+import translations from '../translations';
 
 function StoryCard({ story, lang }) {
+  const t = translations[lang];
+  const baseUrl = import.meta.env.VITE_API_BASE_URL.replace('/api/', '');
+  
   const imageUrl = story.image 
-    ? (story.image.startsWith('http') ? story.image : `http://127.0.0.1:8000${story.image}`) 
+    ? (story.image.startsWith('http') ? story.image : `${baseUrl}${story.image}`) 
     : 'https://via.placeholder.com/150';
 
   const title = lang === 'am' && story.title_am ? story.title_am : story.title_en;;
@@ -32,7 +36,7 @@ function StoryCard({ story, lang }) {
         </p>
         <div className="mt-6 pt-5 border-t border-gray-100 flex justify-between items-center">
           <Link to={`/story/${story.id}`} className="text-sm font-black text-transparent bg-clip-text bg-gradient-to-r from-pink-600 to-purple-600 hover:opacity-80 transition-opacity flex items-center gap-2 group/link">
-            {lang === 'en' ? 'READ JOURNEY' : ''}
+            {t.home.readJourney}
             <ArrowRight size={16} className="text-pink-600 transform group-hover/link:translate-x-1 transition-transform" />
           </Link>
           <div className="flex -space-x-2">
@@ -47,5 +51,6 @@ function StoryCard({ story, lang }) {
 }
 
 export default StoryCard;
+
 
 
