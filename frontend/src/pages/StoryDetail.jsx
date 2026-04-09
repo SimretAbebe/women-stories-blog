@@ -23,7 +23,8 @@ function StoryDetail({ lang }) {
     );
   }
 
-  const baseUrl = import.meta.env.VITE_API_BASE_URL.replace('/api/', '');
+  const rawBaseUrl = import.meta.env.VITE_API_BASE_URL || '';
+  const baseUrl = rawBaseUrl.replace('/api/', '');
   const imageUrl = story.image 
     ? (story.image.startsWith('http') ? story.image : `${baseUrl}${story.image}`) 
     : 'https://via.placeholder.com/800x400';

@@ -10,7 +10,7 @@ function SubmitStory({ lang }) {
   const navigate = useNavigate();
   const { tokens } = useContext(AuthContext);
   const [loading, setLoading] = useState(false);
-  const t = translations[lang];
+  const t = translations[lang] || translations['en'];
 
   useEffect(() => {
     if (!tokens) {

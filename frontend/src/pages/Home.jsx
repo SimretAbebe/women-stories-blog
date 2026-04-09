@@ -9,7 +9,7 @@ function Home({ lang }) {
   const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
-  const t = translations[lang];
+  const t = translations[lang] || translations['en'];
 
   useEffect(() => {
     // Fetch categories

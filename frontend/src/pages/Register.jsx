@@ -15,7 +15,7 @@ function Register({ lang }) {
   });
   const [error, setError] = useState('');
   const navigate = useNavigate();
-  const t = translations[lang];
+  const t = translations[lang] || translations['en'];
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });

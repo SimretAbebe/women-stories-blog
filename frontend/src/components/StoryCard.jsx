@@ -3,8 +3,9 @@ import { ArrowRight } from 'lucide-react';
 import translations from '../translations';
 
 function StoryCard({ story, lang }) {
-  const t = translations[lang];
-  const baseUrl = import.meta.env.VITE_API_BASE_URL.replace('/api/', '');
+  const t = translations[lang] || translations['en'];
+  const rawBaseUrl = import.meta.env.VITE_API_BASE_URL || '';
+  const baseUrl = rawBaseUrl.replace('/api/', '');
   
   const imageUrl = story.image 
     ? (story.image.startsWith('http') ? story.image : `${baseUrl}${story.image}`) 

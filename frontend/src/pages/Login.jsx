@@ -10,7 +10,7 @@ function Login({ lang }) {
   const { login } = useContext(AuthContext);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-  const t = translations[lang];
+  const t = translations[lang] || translations['en'];
 
   const handleSubmit = async (e) => {
     e.preventDefault();

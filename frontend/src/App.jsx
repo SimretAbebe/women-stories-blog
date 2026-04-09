@@ -14,7 +14,7 @@ import './App.css';
 function App() {
   const [lang, setLang] = useState('en');
   const { tokens, logout } = useContext(AuthContext);
-  const t = translations[lang];
+  const t = translations[lang] || translations['en'];
 
   return (
     <div className="min-h-screen bg-gray-50 text-gray-900 font-sans">

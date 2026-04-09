@@ -9,7 +9,7 @@ function MyStories({ lang }) {
   const [stories, setStories] = useState([]);
   const { tokens } = useContext(AuthContext);
   const [loading, setLoading] = useState(true);
-  const t = translations[lang];
+  const t = translations[lang] || translations['en'];
 
   useEffect(() => {
     api.get('stories/my_stories/')
