@@ -3,12 +3,14 @@ import { useNavigate } from 'react-router-dom';
 import AuthContext from '../context/AuthContext';
 import api from '../api';
 import { Loader2 } from 'lucide-react';
+import translations from '../translations';
 
 
 function SubmitStory({ lang }) {
   const navigate = useNavigate();
   const { tokens } = useContext(AuthContext);
   const [loading, setLoading] = useState(false);
+  const t = translations[lang];
 
   useEffect(() => {
     if (!tokens) {
@@ -53,11 +55,11 @@ function SubmitStory({ lang }) {
       await api.post('stories/', data, {
         headers: { 'Content-Type': 'multipart/form-data' }
       });
-      alert(lang === 'en' ? 'Story submitted! Awaiting approval.' : 'Story sent');
+      alert(t.submit.success);
       navigate('/');
     } catch (err) {
       console.error(err);
-      alert('Error submitting story');
+      alert(t.submit.error);
     } finally {
       setLoading(false);
     }
@@ -66,13 +68,13 @@ function SubmitStory({ lang }) {
   return (
     <div className="max-w-2xl mx-auto p-6 bg-white rounded-xl shadow-md">
       <h2 className="text-2xl font-bold mb-6 text-gray-800">
-        {lang === 'en' ? 'Submit a New Story' : ''}
+        {t.submit.title}
       </h2>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
-          <label className="block text-sm font-medium text-gray-700">{lang === 'en' ? 'Category' : 'Section'}</label>
+          <label className="block text-sm font-medium text-gray-700">{t.submit.category}</label>
           <select name="category" onChange={handleChange} required className="mt-1 block w-full border rounded-md p-2">
-            <option value="">{lang === 'en' ? 'Select Category' : 'Select any property'}</option>
+            <option value="">{t.submit.selectCategory}</option>
             {categories.map(cat => (
               <option key={cat.id} value={cat.id}>{cat.name}</option>
             ))}
@@ -80,19 +82,19 @@ function SubmitStory({ lang }) {
         </div>
 
         <div className="border-l-4 border-pink-500 pl-4 space-y-4">
-          <input type="text" name="title_en" placeholder="English Title" onChange={handleChange} required className="w-full border rounded-md p-2" />
-          <textarea name="content_en" placeholder="English Content" onChange={handleChange} required rows="4" className="w-full border rounded-md p-2" />
+          <input type="text" name="title_en" placeholder={t.submit.titleEn} onChange={handleChange} required className="w-full border rounded-md p-2" />
+          <textarea name="content_en" placeholder={t.submit.contentEn} onChange={handleChange} required rows="4" className="w-full border rounded-md p-2" />
         </div>
 
         {/* Amharic Inputs */}
         <div className="border-l-4 border-purple-500 pl-4 space-y-4">
-          <input type="text" name="title_am" placeholder="Amharic LIst" onChange={handleChange}  className="w-full border rounded-md p-2" />
-          <textarea name="content_am" placeholder="Amharic Section" onChange={handleChange}  rows="4" className="w-full border rounded-md p-2" />
+          <input type="text" name="title_am" placeholder={t.submit.titleAm} onChange={handleChange}  className="w-full border rounded-md p-2" />
+          <textarea name="content_am" placeholder={t.submit.contentAm} onChange={handleChange}  rows="4" className="w-full border rounded-md p-2" />
         </div>
 
         {/* Image Upload */}
         <div>
-          <label className="block text-sm font-medium text-gray-700">{lang === 'en' ? 'Story Image' : 'የታሪኩ ምስል'}</label>
+          <label className="block text-sm font-medium text-gray-700">{t.submit.image}</label>
           <input type="file" name="image" onChange={handleChange} accept="image/*" className="mt-1 block w-full text-sm text-gray-500" />
         </div>
 
@@ -104,10 +106,10 @@ function SubmitStory({ lang }) {
   {loading ? (
     <>
       <Loader2 className="animate-spin" size={20} />
-      {lang === 'en' ? 'Uploading story...' : ''}
+      {t.submit.loading}
     </>
   ) : (
-    lang === 'en' ? 'Submit Story' : ''
+    t.submit.button
   )}
 </button>
 
@@ -117,3 +119,4 @@ function SubmitStory({ lang }) {
 }
 
 export default SubmitStory;
+

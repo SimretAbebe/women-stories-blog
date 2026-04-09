@@ -2,6 +2,7 @@ import React, { useState, useContext } from 'react';
 import AuthContext from '../context/AuthContext';
 import  { Loader2 } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import translations from '../translations';
 
 function Login({ lang }) {
   const [username, setUsername] = useState('');
@@ -9,6 +10,7 @@ function Login({ lang }) {
   const { login } = useContext(AuthContext);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const t = translations[lang];
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -17,7 +19,7 @@ function Login({ lang }) {
     try {
       await login(username, password);
     } catch (err) {
-      setError(lang === 'en' ? 'Invalid username or password' : 'Wrong username or password');
+      setError(t.login.error);
     } finally {
       setLoading(false);
     }
@@ -26,7 +28,7 @@ function Login({ lang }) {
   return (
     <div className="max-w-md mx-auto mt-12 p-8 bg-white rounded-2xl shadow-xl border border-gray-100">
       <h2 className="text-3xl font-extrabold text-center mb-8 bg-clip-text text-transparent bg-gradient-to-r from-pink-600 to-purple-600">
-        {lang === 'en' ? 'Welcome Back' : 'Welcome again'}
+        {t.login.title}
       </h2>
       
       {error && <p className="text-red-500 text-sm mb-4 text-center font-bold">{error}</p>}
@@ -34,7 +36,7 @@ function Login({ lang }) {
       <form onSubmit={handleSubmit} className="space-y-6">
         <div>
           <label className="block text-sm font-bold text-gray-700 mb-2">
-            {lang === 'en' ? 'Username' : 'Name'}
+            {t.login.username}
           </label>
           <input 
             type="text" 
@@ -42,13 +44,13 @@ function Login({ lang }) {
             onChange={(e) => setUsername(e.target.value)}
             required 
             className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-all outline-none"
-            placeholder={lang === 'en' ? 'Enter your username' : 'Your name'}
+            placeholder={t.login.placeholderUser}
           />
         </div>
         
         <div>
           <label className="block text-sm font-bold text-gray-700 mb-2">
-            {lang === 'en' ? 'Password' : 'Key'}
+            {t.login.password}
           </label>
           <input 
             type="password" 
@@ -56,7 +58,7 @@ function Login({ lang }) {
             onChange={(e) => setPassword(e.target.value)}
             required 
             className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-all outline-none"
-            placeholder="••••••••"
+            placeholder={t.login.placeholderPass}
           />
         </div>
         <button 
@@ -67,17 +69,17 @@ function Login({ lang }) {
   {loading ? (
     <>
       <Loader2 className="animate-spin" size={20} />
-      {lang === 'en' ? 'Signing in...' : 'Waiting'}
+      {t.login.loading}
     </>
   ) : (
-    lang === 'en' ? 'Login' : ''
+    t.login.button
   )}
 </button>
       </form>
      <p className="mt-8 text-center text-sm text-gray-500 font-medium">
-  {lang === 'en' ? "Don't have an account?" : ''} {' '}
+  {t.login.noAccount} {' '}
   <Link to="/register" className="text-pink-600 font-bold hover:underline">
-    {lang === 'en' ? 'Create one' : ''}
+    {t.login.createAccount}
   </Link>
 </p>
 
@@ -86,3 +88,4 @@ function Login({ lang }) {
 }
 
 export default Login;
+

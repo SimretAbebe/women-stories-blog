@@ -2,10 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import api from '../api';
 import { ArrowLeft, Share2 } from 'lucide-react';
+import translations from '../translations';
 
 function StoryDetail({ lang }) {
   const { id } = useParams(); 
   const [story, setStory] = useState(null);
+  const t = translations[lang];
 
   useEffect(() => {
     api.get(`stories/${id}/`)
@@ -21,9 +23,11 @@ function StoryDetail({ lang }) {
     );
   }
 
+  const baseUrl = import.meta.env.VITE_API_BASE_URL.replace('/api/', '');
   const imageUrl = story.image 
-    ? (story.image.startsWith('http') ? story.image : `http://127.0.0.1:8000${story.image}`) 
+    ? (story.image.startsWith('http') ? story.image : `${baseUrl}${story.image}`) 
     : 'https://via.placeholder.com/800x400';
+
   const title = lang === 'am' && story.title_am ? story.title_am : story.title_en;
   const content = lang === 'am' && story.content_am ? story.content_am : story.content_en;
 
@@ -31,7 +35,7 @@ function StoryDetail({ lang }) {
     <div className="max-w-5xl mx-auto px-4 py-12 animate-fade-up">
       <Link to="/" className="inline-flex items-center gap-2 text-sm font-black text-gray-500 hover:text-pink-600 transition-all mb-10 group">
         <ArrowLeft size={16} className="transform group-hover:-translate-x-1 transition-transform" /> 
-        {lang === 'en' ? 'BACK TO JOURNEYS' : 'Let Us Back'}
+        {t.storyDetail.back}
       </Link>
       
       <div className="relative h-[500px] w-full mb-12 rounded-[2.5rem] overflow-hidden shadow-2xl border-4 border-white">
@@ -49,7 +53,7 @@ function StoryDetail({ lang }) {
               {story.author_username ? story.author_username[0].toUpperCase() : 'U'}
             </div>
             <div className="text-white">
-              <p className="text-sm font-bold opacity-100">{story.author_username || 'Contributor'}</p>
+              <p className="text-sm font-bold opacity-100">{story.author_username || t.storyDetail.contributor}</p>
               <p className="text-xs opacity-70 font-medium">{new Date(story.created_at).toLocaleDateString(undefined, { dateStyle: 'long' })}</p>
             </div>
           </div>
@@ -67,7 +71,7 @@ function StoryDetail({ lang }) {
       <div className="flex justify-center">
         <button className="bg-gradient-to-r from-pink-600 to-purple-600 text-white px-10 py-4 rounded-full font-black shadow-xl hover:scale-105 transition-all flex items-center gap-3 active:scale-95">
           <Share2 size={20} />
-          {lang === 'en' ? 'SHARE THIS JOURNEY' : 'SHARE'}
+          {t.storyDetail.share}
         </button>
       </div>
     </div>
@@ -75,3 +79,4 @@ function StoryDetail({ lang }) {
 }
 
 export default StoryDetail;
+
