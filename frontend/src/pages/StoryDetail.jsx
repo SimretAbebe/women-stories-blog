@@ -7,7 +7,7 @@ import translations from '../translations';
 function StoryDetail({ lang }) {
   const { id } = useParams(); 
   const [story, setStory] = useState(null);
-  const t = translations[lang];
+  const t = translations[lang] || translations['en'];
 
   useEffect(() => {
     api.get(`stories/${id}/`)
@@ -29,8 +29,12 @@ function StoryDetail({ lang }) {
     ? (story.image.startsWith('http') ? story.image : `${baseUrl}${story.image}`) 
     : 'https://via.placeholder.com/800x400';
 
-  const title = lang === 'am' && story.title_am ? story.title_am : story.title_en;
-  const content = lang === 'am' && story.content_am ? story.content_am : story.content_en;
+  // Better check for Amharic content: must exist and not be just whitespace
+  const hasAmharicTitle = story.title_am && story.title_am.trim().length > 0;
+  const hasAmharicContent = story.content_am && story.content_am.trim().length > 0;
+
+  const title = (lang === 'am' && hasAmharicTitle) ? story.title_am : story.title_en;
+  const content = (lang === 'am' && hasAmharicContent) ? story.content_am : story.content_en;
 
   return (
     <div className="max-w-5xl mx-auto px-4 py-12 animate-fade-up">

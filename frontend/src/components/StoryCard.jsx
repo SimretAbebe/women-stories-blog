@@ -11,8 +11,12 @@ function StoryCard({ story, lang }) {
     ? (story.image.startsWith('http') ? story.image : `${baseUrl}${story.image}`) 
     : 'https://via.placeholder.com/150';
 
-  const title = lang === 'am' && story.title_am ? story.title_am : story.title_en;;
-  const content = lang === 'am' && story.content_am ? story.content_am : story.content_en;
+  // Better check for Amharic content: must exist and not be just whitespace
+  const hasAmharicTitle = story.title_am && story.title_am.trim().length > 0;
+  const hasAmharicContent = story.content_am && story.content_am.trim().length > 0;
+
+  const title = (lang === 'am' && hasAmharicTitle) ? story.title_am : story.title_en;
+  const content = (lang === 'am' && hasAmharicContent) ? story.content_am : story.content_en;
 
   return (
     <div className="glass-card rounded-2xl overflow-hidden hover:shadow-2xl transition-all duration-500 border border-white/50 animate-fade-up hover:-translate-y-2 group">
