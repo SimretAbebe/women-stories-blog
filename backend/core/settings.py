@@ -72,8 +72,10 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    'cloudinary_storage',
     'whitenoise.runserver_nostatic',
     'django.contrib.staticfiles',
+    'cloudinary',
     'stories',
     'rest_framework',
     'corsheaders',
@@ -165,6 +167,15 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
+
+# Cloudinary Settings
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': env('CLOUDINARY_CLOUD_NAME', default=''),
+    'API_KEY': env('CLOUDINARY_API_KEY', default=''),
+    'API_SECRET': env('CLOUDINARY_API_SECRET', default='')
+}
 
 CORS_ALLOWED_ORIGINS = env.list('CORS_ALLOWED_ORIGINS', default=[])
 if DEBUG:
