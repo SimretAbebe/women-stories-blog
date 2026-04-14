@@ -24,13 +24,19 @@ class CategorySerializer(serializers.ModelSerializer):
 
 class StorySerializer(serializers.ModelSerializer):
     category_name = serializers.ReadOnlyField(source='category.name')
-    image = serializers.SerializerMethodField()
+    author_username = serializers.ReadOnlyField(source='author.username')
 
     class Meta:
         model = Story
-        fields = '__all__'
+        fields = [
+            'id', 'title_en', 'title_am', 'slug', 'image', 
+            'content_en', 'content_am', 'category', 'category_name',
+            'created_at', 'updated_at', 'author', 'author_username'
+        ]
+        read_only_fields = ['id', 'slug', 'created_at', 'updated_at', 'author']
 
-    def get_image(self, obj):
-        if obj.image:
-            return obj.image.url
-        return None
+    def to_representation(self, instance):
+        representation = super().to_representation(instance)
+        if instance.image:
+            representation['image'] = instance.image.url
+        return representation
