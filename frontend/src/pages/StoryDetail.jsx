@@ -23,11 +23,17 @@ function StoryDetail({ lang }) {
     );
   }
 
-  const rawBaseUrl = import.meta.env.VITE_API_BASE_URL || '';
-  const baseUrl = rawBaseUrl.replace('/api/', '');
-  const imageUrl = story.image 
-    ? (story.image.startsWith('http') ? story.image : `${baseUrl}${story.image}`) 
-    : 'https://via.placeholder.com/800x400';
+  // Robust image URL logic
+  let imageUrl = 'https://via.placeholder.com/1200x600';
+  if (story.image) {
+    if (story.image.startsWith('http')) {
+      imageUrl = story.image;
+    } else {
+      const rawBaseUrl = import.meta.env.VITE_API_BASE_URL || '';
+      const baseUrl = rawBaseUrl.replace('/api/', '');
+      imageUrl = `${baseUrl}${story.image}`;
+    }
+  }
 
   // Better check for Amharic content: must exist and not be just whitespace
   const hasAmharicTitle = story.title_am && story.title_am.trim().length > 0;
