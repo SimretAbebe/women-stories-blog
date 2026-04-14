@@ -175,7 +175,9 @@ if CLOUDINARY_URL:
     DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 else:
     print("--- USING LOCAL STORAGE ---")
+    DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
 
+# Force WhiteNoise for static files specifically
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 CORS_ALLOWED_ORIGINS = env.list('CORS_ALLOWED_ORIGINS', default=[])

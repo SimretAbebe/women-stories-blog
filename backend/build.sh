@@ -4,6 +4,9 @@ set -o errexit
 
 pip install -r requirements.txt
 
+# Create static directory if it doesn't exist
+mkdir -p staticfiles
+
 python manage.py collectstatic --noinput
 python manage.py migrate
 
