@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils.text import slugify
 from django.contrib.auth.models import User
+from cloudinary.models import CloudinaryField
 
 class Category(models.Model):
     name = models.CharField(max_length=100)
@@ -13,7 +14,7 @@ class Story(models.Model):
     title_en = models.CharField(max_length=200)
     title_am= models.CharField(max_length=200 , blank=True , null=True)
     slug = models.SlugField(unique=True, blank=True)
-    image = models.ImageField(upload_to='stories/', blank=True, null=True)
+    image = CloudinaryField('image', folder='stories', blank=True, null=True)
     content_en = models.TextField()
     content_am= models.TextField(blank=True , null=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='stories')

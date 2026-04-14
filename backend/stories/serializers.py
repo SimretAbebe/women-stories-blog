@@ -23,7 +23,14 @@ class CategorySerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class StorySerializer(serializers.ModelSerializer):
-     category_name = serializers.ReadOnlyField(source='category.name')
-     class Meta:
+    category_name = serializers.ReadOnlyField(source='category.name')
+    image = serializers.SerializerMethodField()
+
+    class Meta:
         model = Story
         fields = '__all__'
+
+    def get_image(self, obj):
+        if obj.image:
+            return obj.image.url
+        return None
